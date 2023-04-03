@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import Background from './images/background.jpg';
 
 const Globalstyle = createGlobalStyle`
 *,::before,::after{
@@ -17,7 +18,7 @@ html {
     tab-size:4;
     font-family:theme('fontFamily.sans',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji","Noto Serif",serif,);
     font-size: 62.5%;
-}
+    }
 
 body {
     margin:0;
@@ -27,6 +28,7 @@ body {
     color: #000;
     line-height: 1.5;
     overflow-x: hidden;
+    background: url(${Background}) no-repeat center 0;
 
   &::-webkit-scrollbar-track {
     background: #eee;

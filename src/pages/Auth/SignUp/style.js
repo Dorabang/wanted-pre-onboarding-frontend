@@ -21,6 +21,7 @@ export const FormContainer = styled.div`
     box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
     padding: 40px 30px;
     border-radius: 10px;
+    background: rgba(255, 255, 255, 1);
   }
 
   label {
