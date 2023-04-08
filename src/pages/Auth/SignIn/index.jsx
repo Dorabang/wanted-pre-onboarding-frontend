@@ -1,35 +1,42 @@
-import React, { useState } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FormContainer } from './style';
 import axios from 'axios';
 
-const SignIn = () => {
+const SignIn = ({ accessToken, SERVER_URI }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const SERVER_URL = 'https://pre-onboarding-selection-task.shop';
+  const [able, setAble] = useState(false);
 
   const Navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      alert('이미 로그인이 완료되었습니다.');
+      Navigate('../todo');
+    }
+  }, [Navigate, accessToken]);
 
   const onHandleSubmitSignIn = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`${SERVER_URL}/auth/signin`, {
+      const response = await axios.post(`${SERVER_URI}/auth/signin`, {
         email,
         password,
       });
 
-      localStorage.setItem('userToken', response.data.access_token);
+      localStorage.setItem('access_token', response.data.access_token);
+
+      alert('로그인이 완료되었습니다.');
+
+      return Navigate('../todo');
     } catch (err) {
       if (err.response) {
         setError(err.response.data.message);
       }
     }
-
-    alert('로그인이 완료되었습니다.');
-
-    return Navigate('../todo');
   };
 
   const onHandleChangeValue = (event) => {
@@ -41,6 +48,10 @@ const SignIn = () => {
       setEmail(value);
     } else if (name === 'password') {
       setPassword(value);
+    }
+
+    if (email !== '' && password !== '') {
+      setAble((prev) => !prev);
     }
   };
 
@@ -81,13 +92,15 @@ const SignIn = () => {
             value={error}
             id='ErrorMsg'
           />
-          {password === '' && email === '' ? (
-            <div className='btn'>로그인</div>
-          ) : (
-            <input type='submit' value='로그인' data-testid='signin-button' />
-          )}
           <input
-            type='button'
+            type={!able ? 'button' : 'submit'}
+            value='로그인'
+            data-testid='signin-button'
+            className='btn'
+          />
+
+          <input
+            type='reset'
             value='회원가입'
             onClick={() => Navigate('../signUp')}
           />

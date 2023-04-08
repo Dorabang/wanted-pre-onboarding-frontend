@@ -1,32 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormContainer } from './style';
 import axios from 'axios';
 
-const SignUp = () => {
+const SignUp = ({ accessToken, SERVER_URI }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const SERVER_URL = 'https://pre-onboarding-selection-task.shop';
+  const [able, setAble] = useState(false);
 
   const Navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      alert('이미 로그인이 완료되었습니다.');
+      Navigate('../todo');
+    }
+  }, [Navigate, accessToken]);
 
   const onSignUpSubmit = async (event) => {
     event.preventDefault();
 
-    await axios
-      .post(`${SERVER_URL}/auth/signup`, {
+    try {
+      await axios.post(`${SERVER_URI}/auth/signup`, {
         email,
         password,
-      })
-      .catch((e) => {
-        if (e.response) {
-          setError(e.response.data.message);
-        }
       });
 
-    // alert('회원가입이 완료되었습니다.');
-    // Navigate('../signin');
+      alert('회원가입이 완료되었습니다.');
+      Navigate('../signin');
+    } catch (err) {
+      if (err?.response) {
+        setError(err.response.data.message);
+      }
+    }
   };
 
   const onValueChange = (event) => {
@@ -38,6 +45,10 @@ const SignUp = () => {
       setEmail(value);
     } else if (name === 'password') {
       setPassword(value);
+    }
+
+    if (email !== '' && password !== '') {
+      setAble((prev) => !prev);
     }
   };
 
@@ -79,7 +90,11 @@ const SignUp = () => {
             id='ErrorMsg'
           />
 
-          <input type='submit' value='회원가입' data-testid='signup-button' />
+          <input
+            type={!able ? 'button' : 'submit'}
+            value='회원가입'
+            data-testid='signup-button'
+          />
 
           <input
             type='reset'

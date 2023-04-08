@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from './style';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Home = () => {
+const Home = ({ accessToken }) => {
+  const Navigate = useNavigate();
+  useEffect(() => {
+    if (accessToken) {
+      alert('이미 로그인이 완료되었습니다.');
+      Navigate('../todo');
+    }
+  }, [accessToken, Navigate]);
   return (
     <>
       <Container>
