@@ -46,7 +46,7 @@ export const FormContainer = styled.div`
   }
 
   input[type='submit'],
-  [type='button'],
+  [type='reset'],
   .btn {
     padding: 10px 30px;
     border-radius: 5px;
@@ -67,12 +67,12 @@ export const FormContainer = styled.div`
     border: 1px solid #94a61a;
   }
 
-  input[type='button']:first-child {
+  button:first-child {
     color: #000;
     border: 1px solid #999;
   }
 
-  input[type='button']:hover {
+  input[type='reset']:hover {
     color: #000;
     border: 1px solid #999;
   }
