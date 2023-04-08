@@ -46,6 +46,7 @@ export const FormContainer = styled.div`
   }
 
   input[type='submit'],
+  input:disabled,
   [type='reset'],
   .btn {
     padding: 10px 30px;
@@ -57,8 +58,14 @@ export const FormContainer = styled.div`
     cursor: pointer;
   }
 
-  .btn {
+  input:disabled {
     cursor: default;
+  }
+
+  input[type='submit']:disabled:hover {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #999;
   }
 
   input[type='submit']:hover {

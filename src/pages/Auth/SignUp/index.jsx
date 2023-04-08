@@ -91,9 +91,10 @@ const SignUp = ({ accessToken, SERVER_URI }) => {
           />
 
           <input
-            type={!able ? 'button' : 'submit'}
+            type='submit'
             value='회원가입'
             data-testid='signup-button'
+            disabled={able ? false : true}
           />
 
           <input

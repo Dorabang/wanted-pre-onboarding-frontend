@@ -93,10 +93,11 @@ const SignIn = ({ accessToken, SERVER_URI }) => {
             id='ErrorMsg'
           />
           <input
-            type={!able ? 'button' : 'submit'}
+            type='submit'
             value='로그인'
             data-testid='signin-button'
             className='btn'
+            disabled={able ? false : true}
           />
 
           <input
