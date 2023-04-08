@@ -28,7 +28,7 @@ body {
     color: #000;
     line-height: 1.5;
     overflow-x: hidden;
-    background: url(${Background}) no-repeat center 0;
+  background: url(${Background}) center 0 no-repeat fixed;
 
   &::-webkit-scrollbar-track {
     background: #eee;
