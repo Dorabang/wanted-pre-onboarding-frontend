@@ -1,34 +1,94 @@
 import styled from 'styled-components';
+import checked from '../../images/checked.png';
+import notchecked from '../../images/notchecked.png';
 
 export const TodoListWrap = styled.div`
   padding-bottom: 100px;
   li {
-    padding: 8px 0;
+    margin-bottom: 20px;
   }
 
-  li input[type='checkbox'] {
-    margin-right: 5px;
-  }
-
-  .editBtn {
-    display: inline-block;
-    padding-left: 5px;
-    color: #666;
-    cursor: default;
-  }
-
-  .editBtn input[type='button'] {
-    padding: 0 5px;
+  input[type='button'] {
+    padding: 0 4px;
     cursor: pointer;
+    color: #666;
     transition: color 0.3s;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      content: '';
+      display: block;
+      width: 100px;
+      height: 5px;
+      background: #000;
+    }
   }
 
-  .editBtn input[type='button']:hover {
+  label:nth-child(2) input[type='button'] {
+    margin-left: 10px;
+  }
+
+  label input[type='text'] {
+    padding: 3px 8px;
+    width: 300px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    transition: background 0.3s, color 0.3s;
+
+    &:focus {
+      outline: none;
+      border: 1px solid #94a61a;
+    }
+  }
+
+  input[type='button']:hover {
     color: #000;
   }
 
-  .editBtn input[type='checkbox'] {
-    color: #000;
+  .check {
+    position: relative;
+    padding-left: 22px;
+  }
+
+  .check input {
+    position: absolute;
+    left: 0;
+    top: 55%;
+    transform: translateY(-50%);
+    &::before {
+      position: absolute;
+      left: -2px;
+      top: -2px;
+      display: block;
+      width: 20px;
+      height: 20px;
+      content: '';
+      background: url(${notchecked}) no-repeat;
+      background-size: cover;
+      transition: background 0.2s;
+    }
+
+    &:focus {
+      outline: none;
+      border: none;
+    }
+
+    &:checked::before {
+      position: absolute;
+      left: -2px;
+      top: -2px;
+      display: block;
+      width: 20px;
+      height: 20px;
+      content: '';
+      background: url(${checked}) no-repeat;
+      background-size: cover;
+    }
   }
 `;
 
@@ -59,6 +119,7 @@ export const InputWrap = styled.div`
     border: 1px solid #ddd;
     margin: 0 5px;
     border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
     transition: background 0.3s, color 0.3s;
   }
 
@@ -66,6 +127,7 @@ export const InputWrap = styled.div`
     width: 400px;
 
     &:focus {
+      outline: none;
       border: 1px solid #94a61a;
     }
   }
