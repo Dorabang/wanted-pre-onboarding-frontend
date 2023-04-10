@@ -10,7 +10,7 @@ const Router = () => {
   const accessToken = localStorage.getItem('access_token');
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path='/' element={<Home accessToken={accessToken} />} />
 
