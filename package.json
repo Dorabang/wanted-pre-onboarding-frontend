@@ -1,5 +1,4 @@
 {
-  "homepage": "https://dorabang.github.io/wanted-pre-onboarding-frontend",
   "name": "wanted-pre-onboarding-frontend",
   "version": "0.1.0",
   "private": true,
@@ -20,8 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "cp build/index.html build/404.html && gh-pages -d build",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -43,5 +42,6 @@
   },
   "devDependencies": {
     "gh-pages": "^5.0.0"
-  }
+  },
+  "homepage": "https://dorabang.github.io/wanted-pre-onboarding-frontend"
 }
