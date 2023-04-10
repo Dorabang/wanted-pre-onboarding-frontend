@@ -7,6 +7,7 @@ const TodoList = ({ SERVER_URI }) => {
   const accessToken = localStorage.getItem('access_token');
   const [todos, setTodos] = useState([]);
   const [editing, setEditing] = useState(false);
+  const [editIndex, setEditIndex] = useState(0);
   const [newTodo, setNewTodo] = useState('');
   const [modifyTodo, setModifyTodo] = useState('');
 
@@ -71,7 +72,8 @@ const TodoList = ({ SERVER_URI }) => {
     }
   };
 
-  const toggleEditing = () => {
+  const toggleEditing = (id) => {
+    setEditIndex(id);
     setEditing((prev) => !prev);
   };
 
@@ -96,7 +98,41 @@ const TodoList = ({ SERVER_URI }) => {
     }
   };
 
-  const onUpdateTodo = (todo, id) => {};
+  const onUpdateTodo = (e, id) => {
+    e.preventDefault();
+    const todoObj = { ...todos.filter((todo) => todo.id === editIndex)[0] };
+    axios
+      .put(
+        `${SERVER_URI}/todos/${id}`,
+        {
+          todo: modifyTodo,
+          isCompleted: todoObj.isCompleted,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then((response) => {
+        const updatedTodo = response.data;
+        setTodos((currentTodo) => {
+          const updatedTodoIndex = currentTodo.findIndex(
+            (todo) => todo.id === updatedTodo.id
+          );
+          const updatedTodos = [
+            ...currentTodo.slice(0, updatedTodoIndex),
+            updatedTodo,
+            ...currentTodo.slice(updatedTodoIndex + 1),
+          ];
+          return updatedTodos;
+        });
+      })
+      .catch((err) => console.log(err));
+    setEditing((prev) => !prev);
+    setModifyTodo('');
+  };
 
   const onUpdateChecked = (id) => {
     const updatedTodos = todos.map((todo) => {
@@ -151,11 +187,12 @@ const TodoList = ({ SERVER_URI }) => {
           </form>
         </InputWrap>
         <TodoListWrap>
+          <h3>Todo List</h3>
           <ul>
             {todos &&
               todos.map((item) => (
                 <li key={item.id}>
-                  {editing ? (
+                  {editing && item.id === editIndex ? (
                     <>
                       <label
                         className='check'
@@ -164,6 +201,7 @@ const TodoList = ({ SERVER_URI }) => {
                         <input
                           type='checkbox'
                           id={`checkingbox${item.id}`}
+                          defaultChecked={item.isCompleted ? true : false}
                           onChange={(e) =>
                             onUpdateChecked(item.id, e.target.checked)
                           }
@@ -178,24 +216,25 @@ const TodoList = ({ SERVER_URI }) => {
                       </label>
                       <label>
                         <input
-                          type='button'
+                          type='submit'
                           value='수정'
+                          className='btn'
                           data-testid='modify-button'
-                          onClick={() => onUpdateTodo(item.todo, item.id)}
+                          onClick={(e) => onUpdateTodo(e, item.id)}
                         />
                       </label>
                       <label>
                         <input
                           type='button'
                           value='취소'
-                          onClick={toggleEditing}
+                          onClick={() => setEditing(false)}
                         />
                       </label>
                     </>
                   ) : (
                     <>
                       <label
-                        className='check'
+                        className='check2'
                         htmlFor={`checkingbox${item.id}`}
                       >
                         <input
@@ -210,9 +249,10 @@ const TodoList = ({ SERVER_URI }) => {
                       </label>
                       <label>
                         <input
-                          type='button'
+                          type='submit'
                           value='편집'
-                          onClick={toggleEditing}
+                          className='btn'
+                          onClick={(e) => toggleEditing(e, item.id)}
                         />
                       </label>
                       <label>
