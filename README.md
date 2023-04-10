@@ -1,74 +1,40 @@
-# wanted-pre-onboarding-frontend
+# wanted-pre-onboarding-frontend 사전과제
+해당 레파지토리는 원티드 프리온보딩 프론트엔드과정 선발 과제 제출을 위해 만들어졌습니다.
 
----
+## 배포
+✅ https://dorabang.github.io/wanted-pre-onboarding-frontend/
 
-# Getting Started with Create React App
+## 기능
+  ### 1. Home : 로그인 안내
+   ![Home](https://user-images.githubusercontent.com/39180932/230912497-141bda45-8782-4688-bad9-0a38bc56785d.jpg)
+   - 로그인 버튼을 누르면 ```/signin``` 페이지로 이동합니다.
+   - 회원가입 버튼을 누르면 ```/signup``` 페이지로 이동합니다.
+   - 이미 로그인된 사용자가 임의적으로 다른 페이지 이동 시에 ```/todo``` 페이지로 리다이렉트됩니다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  ### 2. Sign-up : 회원가입 페이지
+   ![signup](https://user-images.githubusercontent.com/39180932/230912816-8df8e15c-9637-4956-bfa2-e3ebc67907d4.jpg)
+   - 이메일, 비밀번호를 입력하여 가입할 수 있습니다.
+   - 이메일은 ```@``` 포함, 비밀번호는 8자 이상 조건을 만족해야만 회원가입 버튼이 활성화됩니다.
+   - 가입이 승인되면 알림창이 뜨고, 확인 버튼 클릭 시 ```/signin``` 페이지로 이동합니다.
+   - 이미 로그인된 사용자가 임의적으로 다른 페이지 이동 시에 ```/todo``` 페이지로 리다이렉트됩니다.
 
-## Available Scripts
+  ### 3. Sign-in : 로그인 페이지
+   ![signin](https://user-images.githubusercontent.com/39180932/230912879-ec8bd82d-cd3c-4e6c-adf4-e14b3885a58a.jpg)
+   - 회원가입이 완료된 이메일, 비밀번호를 입력하여 로그인할 수 있습니다.
+   - 이메일은 ```@```포함, 비밀번호는 8자 이상 조건을 만족해야만 회원가입 버튼이 활성화됩니다.
+   - 로그인이 승인되면 알림창이 뜨고, 확인 버튼 클릭 시 ```/todo``` 페이지로 이동합니다.
+   - 이미 로그인된 사용자가 임의적으로 다른 페이지 이동 시에 ```/todo``` 페이지로 리다이렉트됩니다.
 
-In the project directory, you can run:
+  ### 4. Todo : 투두리스트 페이지(로그인을 하지 않은 사용자가 임의적으로 다른 페이지로 이동 시 /signin 페이지로 리다이렉트됩니다.)
+   ![todo](https://user-images.githubusercontent.com/39180932/230915873-35034437-911b-4de6-b98a-d691f7c336df.jpg)
+   - 상단 입력창에서 새로운 투두리스트를 추가할 수 있습니다.
+   - Todo List 하단으로 추가된 투두리스트가 나타납니다.
+   - 추가된 투두리스트에 있는 체크박스를 통해 완료 여부를 등록할 수 있습니다.
+   - 추가된 투두리스트에 우측에 있는 수정 버튼을 통해 내용을 수정할 수 있습니다.
+   - 추가된 투두리스트에 우측에 있는 삭체 버튼을 통해 삭제할 수 있습니다.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 프로젝트 실행
+git clone 후,
+```{
+npm install
+npm start
