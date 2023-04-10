@@ -3,12 +3,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { InputWrap, TodoListWrap } from './style';
 
-const TodoList = ({ accessToken, SERVER_URI }) => {
+const TodoList = ({ SERVER_URI }) => {
+  const accessToken = localStorage.getItem('access_token');
   const [todos, setTodos] = useState([]);
-  const [todosIndex, setTodosIndex] = useState(0);
-  const [isChecked, setIsChecked] = useState(false);
-  const [editing, setEditing] = useState(true);
+  const [editing, setEditing] = useState(false);
   const [newTodo, setNewTodo] = useState('');
+  const [modifyTodo, setModifyTodo] = useState('');
 
   const Navigate = useNavigate();
 
@@ -17,6 +17,7 @@ const TodoList = ({ accessToken, SERVER_URI }) => {
       alert('로그인이 필요한 서비스입니다.');
       Navigate('../signin');
     }
+
     try {
       axios
         .get(`${SERVER_URI}/todos`, {
@@ -70,6 +71,10 @@ const TodoList = ({ accessToken, SERVER_URI }) => {
     }
   };
 
+  const toggleEditing = () => {
+    setEditing((prev) => !prev);
+  };
+
   const onDeleteTodo = async (id) => {
     try {
       await axios
@@ -90,31 +95,35 @@ const TodoList = ({ accessToken, SERVER_URI }) => {
       }
     }
   };
-  const onUpdateTodo = async (todo, id) => {
-    /*     const updated = todos.map((updatedTodo) => {
-      if (todo.id === id) {
-        axios.put(`${SERVER_URI}/todos/${id}`, {
-          todo: updatedTodo.todo,
-          isCompleted: updatedTodo.isChecked,
-        });
-      }
-    });
-    try {
-      await axios.put(
-        `${SERVER_URI}/todos/:${id}`,
-        { todo: '2222', isCompleted: true },
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
-      );
-    } catch (err) {
-      if (err) {
-        console.log(err);
-      }
-    } */
-  };
 
-  const onCheckedChange = () => {};
+  const onUpdateTodo = (todo, id) => {};
+
+  const onUpdateChecked = (id) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        const updatedTodo = { ...todo, isCompleted: !todo.isCompleted };
+        axios
+          .put(
+            `${SERVER_URI}/todos/${id}`,
+            {
+              todo: updatedTodo.todo,
+              isCompleted: updatedTodo.isCompleted,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          )
+          .then((response) => console.log(response.data))
+          .catch((err) => console.log(err));
+        return updatedTodo;
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
 
   return (
     <>
@@ -146,47 +155,76 @@ const TodoList = ({ accessToken, SERVER_URI }) => {
             {todos &&
               todos.map((item) => (
                 <li key={item.id}>
-                  {editing && (
-                    <label>
-                      <input
-                        type='checkbox'
-                        checked={item.isCompleted}
-                        onChange={() => onCheckedChange(item.todo, item.id)}
-                      />
-                    </label>
+                  {editing ? (
+                    <>
+                      <label
+                        className='check'
+                        htmlFor={`checkingbox${item.id}`}
+                      >
+                        <input
+                          type='checkbox'
+                          id={`checkingbox${item.id}`}
+                          onChange={(e) =>
+                            onUpdateChecked(item.id, e.target.checked)
+                          }
+                        />
+                      </label>
+                      <label>
+                        <input
+                          type='text'
+                          value={modifyTodo}
+                          onChange={(e) => setModifyTodo(e.target.value)}
+                        />
+                      </label>
+                      <label>
+                        <input
+                          type='button'
+                          value='수정'
+                          data-testid='modify-button'
+                          onClick={() => onUpdateTodo(item.todo, item.id)}
+                        />
+                      </label>
+                      <label>
+                        <input
+                          type='button'
+                          value='취소'
+                          onClick={toggleEditing}
+                        />
+                      </label>
+                    </>
+                  ) : (
+                    <>
+                      <label
+                        className='check'
+                        htmlFor={`checkingbox${item.id}`}
+                      >
+                        <input
+                          type='checkbox'
+                          defaultChecked={item.isCompleted ? true : false}
+                          id={`checkingbox${item.id}`}
+                          onChange={(e) =>
+                            onUpdateChecked(item.id, e.target.checked)
+                          }
+                        />
+                        {item.todo}
+                      </label>
+                      <label>
+                        <input
+                          type='button'
+                          value='편집'
+                          onClick={toggleEditing}
+                        />
+                      </label>
+                      <label>
+                        <input
+                          type='button'
+                          value='삭제'
+                          data-testid='delete-button'
+                          onClick={() => onDeleteTodo(item.id)}
+                        />
+                      </label>
+                    </>
                   )}
-                  <span>{item.todo}</span>
-                  <div className='editBtn'>
-                    {editing ? (
-                      <>
-                        <label>
-                          <input
-                            type='button'
-                            onClick={(prev) => setEditing(!prev)}
-                            value='편집'
-                          />
-                        </label>
-                        <label>
-                          <input
-                            type='button'
-                            onClick={() => onDeleteTodo(item.id)}
-                            value='삭제'
-                          />
-                        </label>
-                      </>
-                    ) : (
-                      <>
-                        <label>
-                          <input type='button' value='수정' />
-                          <input
-                            type='button'
-                            value='취소'
-                            onClick={() => setEditing(false)}
-                          />
-                        </label>
-                      </>
-                    )}
-                  </div>
                 </li>
               ))}
           </ul>
