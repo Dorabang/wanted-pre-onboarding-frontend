@@ -4,11 +4,29 @@ import notchecked from '../../images/notchecked.png';
 
 export const TodoListWrap = styled.div`
   padding-bottom: 100px;
+
+  ul {
+    padding: 0 50px;
+  }
+
+  h3 {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 900;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-style: italic;
+    border-top: 1px dashed #94a61a;
+    padding: 20px 0;
+    color: #94a61a;
+  }
+
   li {
     margin-bottom: 20px;
   }
 
-  input[type='button'] {
+  input[type='button'],
+  input[type='submit'] {
     padding: 0 4px;
     cursor: pointer;
     color: #666;
@@ -27,8 +45,8 @@ export const TodoListWrap = styled.div`
     }
   }
 
-  label:nth-child(2) input[type='button'] {
-    margin-left: 10px;
+  label:nth-child(2) input[type='submit'] {
+    margin-left: 20px;
   }
 
   label input[type='text'] {
@@ -46,19 +64,36 @@ export const TodoListWrap = styled.div`
     }
   }
 
+  input[type='submit']:hover,
   input[type='button']:hover {
     color: #000;
   }
 
-  .check {
+  .check,
+  .check2 {
     position: relative;
-    padding-left: 22px;
+    padding-left: 24px;
   }
 
-  .check input {
+  .check2 {
+    &::after {
+      position: absolute;
+      right: -14px;
+      top: 53%;
+      transform: translateY(-50%);
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 16px;
+      background: #999;
+    }
+  }
+
+  .check input,
+  .check2 input {
     position: absolute;
     left: 0;
-    top: 55%;
+    top: 52%;
     transform: translateY(-50%);
     &::before {
       position: absolute;
@@ -93,10 +128,14 @@ export const TodoListWrap = styled.div`
 `;
 
 export const InputWrap = styled.div`
-  padding: 70px 0 40px;
+  padding: 70px 0 60px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  form {
+    width: 100%;
+    text-align: center;
+  }
 
   h3 {
     width: 100%;
@@ -115,9 +154,9 @@ export const InputWrap = styled.div`
 
   input[type='text'],
   [type='submit'] {
-    padding: 10px 20px;
+    display: inline-block;
+    padding: 8px 16px;
     border: 1px solid #ddd;
-    margin: 0 5px;
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.5);
     transition: background 0.3s, color 0.3s;
@@ -125,6 +164,7 @@ export const InputWrap = styled.div`
 
   input[type='text'] {
     width: 400px;
+    margin-right: 10px;
 
     &:focus {
       outline: none;
@@ -136,5 +176,11 @@ export const InputWrap = styled.div`
     background: #94a61a;
     color: #fff;
     border: 1px solid #94a61a;
+  }
+
+  @media (max-width: 500px) {
+    input[type='text'] {
+      width: calc(100% - 80px);
+    }
   }
 `;
