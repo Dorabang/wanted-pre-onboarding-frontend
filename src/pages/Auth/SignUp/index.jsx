@@ -80,7 +80,7 @@ const SignUp = ({ accessToken, SERVER_URI }) => {
             data-testid='password-input'
             required
             minLength={8}
-            placeholder='비밀번호를 8자 이상 입력해주세요.'
+            placeholder='8자 이상의 비밀번호를 입력해주세요.'
           />
 
           <input
