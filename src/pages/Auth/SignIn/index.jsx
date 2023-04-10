@@ -33,7 +33,9 @@ const SignIn = ({ accessToken, SERVER_URI }) => {
 
       return Navigate('../todo');
     } catch (err) {
-      if (err.response) {
+      if (err.response.status === 401) {
+        setError('이메일 또는 비밀번호를 잘못 입력하였습니다.');
+      } else {
         setError(err.response.data.message);
       }
     }
@@ -56,7 +58,7 @@ const SignIn = ({ accessToken, SERVER_URI }) => {
   };
 
   return (
-    <>
+    <div className='inner'>
       <FormContainer>
         <h2>로그인</h2>
         <form onSubmit={onHandleSubmitSignIn}>
@@ -107,7 +109,7 @@ const SignIn = ({ accessToken, SERVER_URI }) => {
           />
         </form>
       </FormContainer>
-    </>
+    </div>
   );
 };
 

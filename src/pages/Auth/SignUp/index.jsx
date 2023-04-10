@@ -53,7 +53,7 @@ const SignUp = ({ accessToken, SERVER_URI }) => {
   };
 
   return (
-    <>
+    <div className='inner'>
       <FormContainer>
         <h2>회원가입</h2>
         <form onSubmit={onSignUpSubmit}>
@@ -86,7 +86,7 @@ const SignUp = ({ accessToken, SERVER_URI }) => {
           <input
             type={error === '' ? 'hidden' : 'text'}
             disabled
-            value={error}
+            value={`📛 ${error}`}
             id='ErrorMsg'
           />
 
@@ -106,7 +106,7 @@ const SignUp = ({ accessToken, SERVER_URI }) => {
           />
         </form>
       </FormContainer>
-    </>
+    </div>
   );
 };
 

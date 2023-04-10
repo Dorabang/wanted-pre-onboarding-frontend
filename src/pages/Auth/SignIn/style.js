@@ -86,9 +86,26 @@ export const FormContainer = styled.div`
 
   #ErrorMsg {
     border: none;
-    background: none;
+    background: rgba(234, 47, 28, 0.08);
+    padding: 12px 0;
     text-align: center;
     margin: 0 0 20px;
     color: #ea2f1c;
+    width: 100%;
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+
+    input[type='submit'],
+    input:disabled,
+    [type='reset'] {
+      padding: 10px 24px;
+    }
+
+    [type='password'] {
+      margin-bottom: 30px;
+    }
   }
 `;
