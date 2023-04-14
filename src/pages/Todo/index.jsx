@@ -211,15 +211,15 @@ const TodoList = ({ SERVER_URI }) => {
                         <input
                           type='text'
                           value={modifyTodo}
+                          data-testid='modify-input'
                           onChange={(e) => setModifyTodo(e.target.value)}
                         />
                       </label>
                       <label>
                         <input
                           type='submit'
-                          value='수정'
-                          className='btn'
-                          data-testid='modify-button'
+                          value='제출'
+                          data-testid='submit-button'
                           onClick={(e) => onUpdateTodo(e, item.id)}
                         />
                       </label>
@@ -227,6 +227,7 @@ const TodoList = ({ SERVER_URI }) => {
                         <input
                           type='button'
                           value='취소'
+                          data-testid='cancel-button'
                           onClick={() => setEditing(false)}
                         />
                       </label>
@@ -250,8 +251,8 @@ const TodoList = ({ SERVER_URI }) => {
                       <label>
                         <input
                           type='submit'
-                          value='편집'
-                          className='btn'
+                          value='수정'
+                          data-testid='modify-input'
                           onClick={(e) => toggleEditing(e, item.id)}
                         />
                       </label>
