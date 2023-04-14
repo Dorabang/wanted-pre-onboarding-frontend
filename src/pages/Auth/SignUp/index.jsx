@@ -5,9 +5,10 @@ import axios from 'axios';
 
 const SignUp = ({ accessToken, SERVER_URI }) => {
   const [email, setEmail] = useState('');
+  const [emailCheck, setEmailCheck] = useState(false);
   const [password, setPassword] = useState('');
+  const [pwdCheck, setPwdCheck] = useState(false);
   const [error, setError] = useState('');
-  const [able, setAble] = useState(false);
 
   const Navigate = useNavigate();
 
@@ -36,19 +37,33 @@ const SignUp = ({ accessToken, SERVER_URI }) => {
     }
   };
 
-  const onValueChange = (event) => {
+  const onEmailChange = (event) => {
     const {
       target: { value, name },
     } = event;
 
     if (name === 'email') {
       setEmail(value);
-    } else if (name === 'password') {
-      setPassword(value);
+      if (value.includes('@')) {
+        setEmailCheck(true);
+      } else {
+        setEmailCheck(false);
+      }
     }
+  };
 
-    if (email !== '' && password !== '') {
-      setAble((prev) => !prev);
+  const onPwdChange = (event) => {
+    const {
+      target: { value, name },
+    } = event;
+
+    if (name === 'password') {
+      setPassword(value);
+      if (value.length >= 8) {
+        setPwdCheck(true);
+      } else {
+        setPwdCheck(false);
+      }
     }
   };
 
@@ -64,10 +79,10 @@ const SignUp = ({ accessToken, SERVER_URI }) => {
             name='email'
             id='idEmail'
             defaultValue={email}
-            onChange={onValueChange}
+            onChange={onEmailChange}
             data-testid='email-input'
             required
-            pattern='[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]*+[a-zA-Z]*+[.]*[a-zA-Z]*'
+            pattern='[a-zA-Z0-9]+[@][a-zA-Z0-9]'
             placeholder='이메일을 입력해주세요.'
           />
           <label htmlFor='pw'>비밀빈호</label>
@@ -76,7 +91,7 @@ const SignUp = ({ accessToken, SERVER_URI }) => {
             name='password'
             id='pw'
             defaultValue={password}
-            onChange={onValueChange}
+            onChange={onPwdChange}
             data-testid='password-input'
             required
             minLength={8}
@@ -90,12 +105,12 @@ const SignUp = ({ accessToken, SERVER_URI }) => {
             id='ErrorMsg'
           />
 
-          <input
-            type='submit'
-            value='회원가입'
+          <button
+            type={!emailCheck && !pwdCheck ? 'button' : 'submit'}
             data-testid='signup-button'
-            disabled={able ? false : true}
-          />
+          >
+            회원가입
+          </button>
 
           <input
             type='reset'

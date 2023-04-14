@@ -5,10 +5,10 @@ import axios from 'axios';
 
 const SignIn = ({ accessToken, SERVER_URI }) => {
   const [email, setEmail] = useState('');
+  const [emailCheck, setEmailCheck] = useState(false);
   const [password, setPassword] = useState('');
+  const [pwdCheck, setPwdCheck] = useState(false);
   const [error, setError] = useState('');
-  const [able, setAble] = useState(false);
-
   const Navigate = useNavigate();
 
   useEffect(() => {
@@ -41,19 +41,33 @@ const SignIn = ({ accessToken, SERVER_URI }) => {
     }
   };
 
-  const onHandleChangeValue = (event) => {
+  const onEmailChange = (event) => {
     const {
       target: { value, name },
     } = event;
 
     if (name === 'email') {
       setEmail(value);
-    } else if (name === 'password') {
-      setPassword(value);
+      if (value.includes('@')) {
+        setEmailCheck(true);
+      } else {
+        setEmailCheck(false);
+      }
     }
+  };
 
-    if (email !== '' && password !== '') {
-      setAble((prev) => !prev);
+  const onPwdChange = (event) => {
+    const {
+      target: { value, name },
+    } = event;
+
+    if (name === 'password') {
+      setPassword(value);
+      if (value.length >= 8) {
+        setPwdCheck(true);
+      } else {
+        setPwdCheck(false);
+      }
     }
   };
 
@@ -69,7 +83,7 @@ const SignIn = ({ accessToken, SERVER_URI }) => {
             name='email'
             id='idEmail'
             defaultValue={email}
-            onChange={onHandleChangeValue}
+            onChange={onEmailChange}
             data-testid='email-input'
             required
             pattern='[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]*+[a-zA-Z]*+[.]*[a-zA-Z]*'
@@ -81,7 +95,7 @@ const SignIn = ({ accessToken, SERVER_URI }) => {
             name='password'
             id='pw'
             defaultValue={password}
-            onChange={onHandleChangeValue}
+            onChange={onPwdChange}
             data-testid='password-input'
             required
             minLength={8}
@@ -91,16 +105,15 @@ const SignIn = ({ accessToken, SERVER_URI }) => {
           <input
             type={error === '' ? 'hidden' : 'text'}
             disabled
-            value={error}
+            value={`📛 ${error}`}
             id='ErrorMsg'
           />
-          <input
-            type='submit'
-            value='로그인'
+          <button
+            type={!emailCheck && !pwdCheck ? 'button' : 'submit'}
             data-testid='signin-button'
-            className='btn'
-            disabled={able ? false : true}
-          />
+          >
+            로그인
+          </button>
 
           <input
             type='reset'
