@@ -45,8 +45,8 @@ export const FormContainer = styled.div`
     }
   }
 
-  input[type='submit'],
-  input:disabled,
+  button[type='submit'],
+  button[type='button'],
   [type='reset'] {
     padding: 10px 30px;
     border-radius: 5px;
@@ -56,17 +56,11 @@ export const FormContainer = styled.div`
     cursor: pointer;
   }
 
-  input:disabled {
+  button[type='button'] {
     cursor: default;
   }
 
-  input[type='submit']:disabled:hover {
-    background: transparent;
-    border: 1px solid #ddd;
-    color: #999;
-  }
-
-  input[type='submit']:hover {
+  button[type='submit']:hover {
     background: #94a61a;
     color: #fff;
     border: 1px solid #94a61a;
@@ -95,7 +89,7 @@ export const FormContainer = styled.div`
   @media (max-width: 500px) {
     width: 100%;
 
-    input[type='submit'],
+    button[type='submit'],
     input:disabled,
     [type='reset'] {
       padding: 10px 24px;

@@ -36,47 +36,38 @@ export const FormContainer = styled.div`
     border-radius: 5px;
     border: 1px solid #ddd;
     margin: 10px 0 20px;
-    background: none;
+    background: transparent;
 
     &:focus {
       outline: none;
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.5);
       border: 1px solid #94a61a;
     }
   }
 
-  input[type='submit'],
-  input:disabled,
-  [type='reset'],
-  .btn {
+  button[type='submit'],
+  button[type='button'],
+  [type='reset'] {
     padding: 10px 30px;
     border-radius: 5px;
-    margin: 0 5px;
     border: 1px solid #ddd;
     color: #999;
     transition: background 0.3s, color 0.3s, border 0.3s;
     cursor: pointer;
   }
 
-  input:disabled {
+  button[type='button'] {
     cursor: default;
   }
 
-  input[type='submit']:disabled:hover {
-    background: transparent;
-    border: 1px solid #ddd;
-    color: #999;
-  }
-
-  input[type='submit']:hover {
+  button[type='submit']:hover {
     background: #94a61a;
     color: #fff;
     border: 1px solid #94a61a;
   }
 
-  button:first-child {
-    color: #000;
-    border: 1px solid #999;
+  input[type='reset'] {
+    margin-left: 10px;
   }
 
   input[type='reset']:hover {
@@ -98,7 +89,7 @@ export const FormContainer = styled.div`
   @media (max-width: 500px) {
     width: 100%;
 
-    input[type='submit'],
+    button[type='submit'],
     input:disabled,
     [type='reset'] {
       padding: 10px 24px;
