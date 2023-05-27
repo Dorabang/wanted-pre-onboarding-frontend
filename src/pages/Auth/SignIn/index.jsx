@@ -86,7 +86,7 @@ const SignIn = ({ accessToken, SERVER_URI }) => {
             onChange={onEmailChange}
             data-testid='email-input'
             required
-            pattern='[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]*+[a-zA-Z]*+[.]*[a-zA-Z]*'
+            pattern='[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*'
             placeholder='이메일을 입력해주세요.'
           />
           <label htmlFor='pw'>비밀빈호</label>
