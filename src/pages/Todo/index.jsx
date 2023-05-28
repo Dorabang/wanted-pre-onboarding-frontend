@@ -253,7 +253,7 @@ const TodoList = ({ SERVER_URI }) => {
                           type='submit'
                           value='수정'
                           data-testid='modify-input'
-                          onClick={(e) => toggleEditing(e, item.id)}
+                          onClick={(e) => toggleEditing(item.id)}
                         />
                       </label>
                       <label>
